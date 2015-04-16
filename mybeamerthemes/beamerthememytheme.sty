@@ -1,0 +1,200 @@
+\mode<presentation>
+
+%%Setup colors
+
+%Syracuse orange:
+\definecolor{alerted@color}{RGB}{220,68,5}
+%Syracuse triad:
+\usecolortheme[RGB={69,4,220}]{structure}
+\definecolor{example@color}{RGB}{4,220,69}
+
+%Royal purple
+%% \usecolortheme[RGB={102, 51, 153}]{structure}
+%% %\definecolor{alerted@color}{RGB}{153, 102, 51}
+%% \definecolor{alerted@color}{RGB}{255, 153, 0}
+
+%% \definecolor{example@color}{RGB}{51, 153, 102}
+% \definecolor{alerted@color}{RGB}{220,68,5}
+
+\setbeamercolor{alerted text}{fg=alerted@color}
+\setbeamercolor{example text}{fg=example@color}
+\usecolortheme{whale}
+\usecolortheme{orchid}
+
+%% Use rounded blocks
+\setbeamertemplate{blocks}[rounded]
+
+% Turn off navigation
+\setbeamertemplate{navigation symbols}{}
+
+\RequirePackage{tikz}
+\usetikzlibrary{shapes.misc}
+
+%%Play with the background
+%% \setbeamercolor{background}{bg=red!50}
+%% \defbeamertemplate*{background}{mytheme}{
+%% \begin{tikzpicture}
+%% \draw[fill=red!50,use as bounding box] (0,0) rectangle (\the\paperwidth,\the\paperheight);
+%% \end{tikzpicture}
+%% }
+
+%% Define the title font -- frame title and section titles inherit from this
+
+\setbeamerfont*{title}{parent=structure,size=\Huge}
+% make sure the background canvas is transparent -- will also be using it to draw boxes around my frame elements, and don't want to cover up an actual background if requested
+\setbeamercolor{background canvas}{bg=}
+
+%% set up the title page
+\defbeamertemplate*{title page}{mytheme}[1][]{
+  \vbox{}
+  \vfill
+  \begin{beamercolorbox}[wd=\paperwidth]{background canvas}
+    \usebeamercolor[fg]{title} %%Apparently need this so the title color gets loaded so tikz can see it
+    \begin{tikzpicture}
+      \node[rounded rectangle,rounded rectangle west arc=none,text width=\textwidth,draw=title.bg,fill=title.bg,text=title.fg,align=center,outer sep=0pt] (t) {\usebeamerfont{title}\strut\inserttitle\strut};
+      \draw[title.bg,fill=title.bg] (t.north west) ++(-\beamer@leftmargin,0)  -- (t.north west) -- (t.south west) -- ++(-\beamer@leftmargin,0) --cycle;
+    \end{tikzpicture}
+  \end{beamercolorbox}
+  \begin{centering}
+    %% \begin{beamercolorbox}[sep=8pt,center,#1]{background}
+    %%   \usebeamercolor[fg]{title} %%Apparently need this so the title color gets loaded so tikz can see it
+    %%   \begin{tikzpicture}
+    %%     \node[rounded rectangle,text width=0.8\textwidth,fill=title.bg,text=title.fg,align=center] {\usebeamerfont{title}\strut\inserttitle\strut};
+    %%   \end{tikzpicture}
+    %% \end{beamercolorbox}
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=8pt,center,#1]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center,#1]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center,#1]{date}
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}\vskip0.5em
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+  \end{centering}
+  \vfill
+}
+
+%% Define the frame title
+\setbeamerfont*{frametitle}{parent=title}
+
+\defbeamertemplate*{frametitle}{mytheme}{
+\ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+\vfill
+\begin{beamercolorbox}[wd=\paperwidth]{background canvas}
+\begin{tikzpicture}
+\node[rounded rectangle,rounded rectangle west arc=none,fill=frametitle.bg,text=frametitle.fg,inner ysep=0pt,inner xsep=\beamer@leftmargin] {\usebeamerfont{frametitle}\strut\insertframetitle\strut};
+\end{tikzpicture}
+\end{beamercolorbox}
+}
+
+%% Add a footer with page number
+%%myfootnote --> add text to bottom left of current slide
+\setbeamertemplate{footnote}{}
+\newcommand{\myfootnote}[1]{\gdef\insertmyfootnote{#1}}
+% make sure we are defined
+\gdef\insertmyfootnote{}
+% reset the footnote each frame
+\let\beamer@original@frame=\frame
+\def\frame{\gdef\insertmyfootnote{}\beamer@original@frame}
+
+\defbeamertemplate*{footline}{mytheme}{
+  \leavevmode%
+\begin{beamercolorbox}[wd=\paperwidth]{background canvas}%
+\usebeamercolor[bg]{palette primary}%
+\ifx\insertmyfootnote\@empty
+\else
+\begin{tikzpicture}
+\node[rounded rectangle,rounded rectangle west arc=none,fill=palette primary.bg,text=palette primary.fg] {\usebeamerfont{author in head/foot}\strut\insertmyfootnote\strut};
+\end{tikzpicture}
+\fi
+\hfill
+\begin{tikzpicture}
+\node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg] {\usebeamerfont{author in head/foot}\strut\insertshortauthor\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\strut};
+\end{tikzpicture}
+\end{beamercolorbox}
+}
+
+%%Add dynamic headnote
+%% \newcommand{\myheadnote}[1]{\gdef\insertmyheadnote{#1}}
+%% % make sure we are defined
+%% \gdef\insertmyheadnote{}
+
+%% \defbeamertemplate*{headline}{mytheme}{
+%% \ifx\insertmyheadnote\@empty
+%% \else
+%% \leavevmode%
+%% \begin{beamercolorbox}[wd=\paperwidth]{background canvas}%
+%% \usebeamercolor[bg]{palette primary}%
+%% \hfill
+%% \begin{tikzpicture}
+%% \node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg] {\usebeamerfont{author in head/foot}\strut\insertmyheadnote\strut};
+%% \end{tikzpicture}
+%% \end{beamercolorbox}%
+%% \fi}
+
+
+%% New itemize points
+\defbeamertemplate*{itemize item}{mytheme}{\tikz{\node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg,text width=1ex,inner ysep=4pt] {};} }
+\defbeamertemplate*{itemize subitem}{mytheme}{\tikz{\node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg,font=\tiny,text width=2pt,inner ysep=2pt] {};}}
+\defbeamertemplate*{itemize subsubitem}{mytheme}{\tikz{\node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg,font=\tiny,text width=2pt,inner ysep=2pt] {};}}
+
+\defbeamertemplate*{enumerate item}{mytheme}{\tikz{\node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg,text width=1ex,inner ysep=2pt] {\usebeamerfont*{item projected}\insertenumlabel};} }
+\defbeamertemplate*{enumerate subitem}{mytheme}{\tikz{\node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg,inner ysep=1pt] {\usebeamerfont*{subitem projected}\insertsubenumlabel};}}
+\defbeamertemplate*{enumerate subsubitem}{mytheme}{\tikz{\node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg,inner ysep=1pt] {\usebeamerfont*{subsubitem projected}\insertsubsubenumlabel};}}
+
+%% toc
+\setbeamercolor{section in toc}{parent=normal text}
+\defbeamertemplate*{section in toc}{mytheme}{
+{\leavevmode\leftskip=2ex%
+\llap{%
+\usebeamercolor{section number projected}%
+\raisebox{-2pt}{\begin{tikzpicture}
+\node[rounded rectangle,rounded rectangle east arc=none,fill=section number projected.bg,text=section number projected.fg,text width=1ex,inner ysep=2pt,outer ysep=0pt] {\usebeamerfont*{section number projected}\inserttocsectionnumber};
+\end{tikzpicture}}
+}%
+}%
+\inserttocsection\par}
+\setbeamercolor{subsection in toc}{parent=section in toc}
+\setbeamerfont{subsection in toc}{parent=section in toc,size=\small}
+\defbeamertemplate*{subsection in toc}{mytheme}{%
+\leavevmode\leftskip=2em\llap{\usebeamercolor{section number projected}\raisebox{2pt}{\tikz{\node[rounded rectangle,rounded rectangle east arc=none,fill=section number projected.bg,font=\tiny,text width=2pt,inner ysep=2pt] {};}}\usebeamercolor{subsection in toc}\usebeamerfont{subsection in toc}} \inserttocsubsection\par}
+
+\setbeamertemplate{subsubsection in toc}[circle]
+
+
+%%Section transitions
+\setbeamerfont*{section title}{parent=title}
+\defbeamertemplate*{section page}{mytheme}[1][]
+{
+  \begin{beamercolorbox}[wd=\paperwidth]{background canvas}
+    \usebeamercolor[fg]{part title} %%Apparently need this so the title color gets loaded so tikz can see it
+    \begin{tikzpicture}
+      \node[rounded rectangle,rounded rectangle west arc=none,text width=\textwidth,draw=part title.bg,fill=part title.bg,text=part title.fg,align=center,outer sep=0pt] (t) {\usebeamerfont{section title}\strut\insertsection\strut};
+      \draw[part title.bg,fill=part title.bg] (t.north west) ++(-\beamer@leftmargin,0)  -- (t.north west) -- (t.south west) -- ++(-\beamer@leftmargin,0) --cycle;
+    \end{tikzpicture}
+  \end{beamercolorbox}
+}
+
+\AtBeginSection[]
+{
+\begin{frame}[plain]
+\sectionpage
+\end{frame}
+}
+
+
+
+
+
+%% \setbeamertemplate{footnote}{
+%% \usebeamercolor[bg]{palette primary}
+%% \begin{tikzpicture}[overlay]
+%% \node[anchor=south west,rounded rectangle,rounded rectangle west arc=none,fill=palette primary.bg,draw=palette primary.bg,text=palette primary.fg] at (current page.south west) {\usebeamerfont{author in head/foot}\strut \insertfootnotemark\insertfootnotetext\strut};
+%% \end{tikzpicture}
+%% }
+
+
+\mode<all>
