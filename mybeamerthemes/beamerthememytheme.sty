@@ -85,12 +85,16 @@
 \vfill
 \begin{beamercolorbox}[wd=\paperwidth]{background canvas}
 \begin{tikzpicture}
-\node[rounded rectangle,rounded rectangle west arc=none,fill=frametitle.bg,text=frametitle.fg,inner ysep=0pt,inner xsep=\beamer@leftmargin] {\usebeamerfont{frametitle}\strut\insertframetitle\strut};
+%%\node[rounded rectangle,rounded rectangle west arc=none,fill=frametitle.bg,text=frametitle.fg,inner ysep=0pt,inner xsep=\beamer@leftmargin] {\usebeamerfont{frametitle}\strut\insertframetitle\strut};
+\node[rounded rectangle,rounded rectangle west arc=none,fill=frametitle.bg,text=frametitle.fg,inner ysep=0pt,inner xsep=\beamer@leftmargin,align=left] {{\usebeamerfont{frametitle}\strut\insertframetitle\strut} \ifx\insertframesubtitle\@empty \else \\[-15pt] \usebeamerfont{framesubtitle}\strut\insertframesubtitle\strut\fi};
 \end{tikzpicture}
 \end{beamercolorbox}
 }
 
 %% Add a footer with page number
+%%soften the colors
+\setbeamercolor{palette soft}{use=palette primary,fg=palette primary.bg!80,bg=palette primary.bg!20}
+
 %%myfootnote --> add text to bottom left of current slide
 \setbeamertemplate{footnote}{}
 \newcommand{\myfootnote}[1]{\gdef\insertmyfootnote{#1}}
@@ -103,16 +107,16 @@
 \defbeamertemplate*{footline}{mytheme}{
   \leavevmode%
 \begin{beamercolorbox}[wd=\paperwidth]{background canvas}%
-\usebeamercolor[bg]{palette primary}%
+\usebeamercolor[bg]{palette soft}%
 \ifx\insertmyfootnote\@empty
 \else
 \begin{tikzpicture}
-\node[rounded rectangle,rounded rectangle west arc=none,fill=palette primary.bg,text=palette primary.fg] {\usebeamerfont{author in head/foot}\strut\insertmyfootnote\strut};
+\node[rounded rectangle,rounded rectangle west arc=none,fill=palette soft.bg,text=palette soft.fg] {\usebeamerfont{author in head/foot}\strut\insertmyfootnote\strut};
 \end{tikzpicture}
 \fi
 \hfill
 \begin{tikzpicture}
-\node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg] {\usebeamerfont{author in head/foot}\strut\insertshortauthor\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\strut};
+\node[rounded rectangle,rounded rectangle east arc=none,fill=palette soft.bg,text=palette soft.fg] {\usebeamerfont{author in head/foot}\strut\insertshortauthor\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\strut};
 \end{tikzpicture}
 \end{beamercolorbox}
 }
@@ -127,10 +131,10 @@
 %% \else
 %% \leavevmode%
 %% \begin{beamercolorbox}[wd=\paperwidth]{background canvas}%
-%% \usebeamercolor[bg]{palette primary}%
+%% \usebeamercolor[bg]{palette soft}%
 %% \hfill
 %% \begin{tikzpicture}
-%% \node[rounded rectangle,rounded rectangle east arc=none,fill=palette primary.bg,text=palette primary.fg] {\usebeamerfont{author in head/foot}\strut\insertmyheadnote\strut};
+%% \node[rounded rectangle,rounded rectangle east arc=none,fill=palette soft.bg,text=palette soft.fg] {\usebeamerfont{author in head/foot}\strut\insertmyheadnote\strut};
 %% \end{tikzpicture}
 %% \end{beamercolorbox}%
 %% \fi}
