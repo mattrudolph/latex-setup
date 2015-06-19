@@ -1,0 +1,69 @@
+
+\documentclass{beamer}
+
+\usetheme{mytheme}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{mathptmx}
+\usepackage{helvet}
+
+\usepackage{amsmath}
+\usepackage{beamermacros}
+\usepackage{atlasphysics}
+
+\usepackage{tikz}
+\tikzstyle{every picture}+=[remember picture]
+
+
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\AtBeginSection[]
+{
+\begin{frame}[plain]{\insertsection}
+
+\end{frame}
+}
+
+\setbeamertemplate{caption}
+{
+  \raggedright
+  \insertcaption\par
+}
+
+\title[]
+{XXTITLEXX}
+
+\author[M.~Rudolph]
+{Matthew Rudolph}
+
+\institute[UofT]
+{
+  University of Toronto
+}
+
+\date[XXYEARXX/XXMONTHXX/XXDAYXX] % (optional)
+{XXMONTHTXTXX XXDAYXX, 20XXYEARXX}
+
+\subject{Talks}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+%% \begin{frame}[plain]{Outline}
+%%   \tableofcontents
+%% \end{frame}
+
+\end{document}
