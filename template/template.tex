@@ -1,0 +1,92 @@
+
+\documentclass[11pt]{beamer}
+
+%% For some reason beamer doesn't seem to define this which is needed for some settings in lhcb-symbols-def
+\makeatletter
+\def\@ptsize{11}
+\makeatother
+
+\usetheme{mytheme}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{mathptmx}
+\usepackage{helvet}
+
+\usepackage{amsmath}
+\usepackage{beamermacros}
+\usepackage{lhcb-symbols-def}
+
+\usepackage{units}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\tikzstyle{every picture}+=[remember picture]
+
+\graphicspath{{./fig/}}
+
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+%\logo{\includegraphics[height=1.0cm]{cms_logo_bigger}}
+
+\AtBeginSection[] % Do nothing for \section*
+{
+\begin{frame}[plain]{\insertsection}
+
+\end{frame}
+}
+
+\setbeamertemplate{caption}
+{
+  \raggedright
+  \insertcaption\par
+}
+
+
+
+
+\title[] % (optional, use only with long paper titles)
+{XXTITLEXX}
+
+
+\author[M.~Rudolph] % (optional, use only with lots of authors)
+{Matthew Rudolph}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[SU] % (optional, but mostly needed)
+{
+  Syracuse University
+}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[XXYEARXX/XXMONTHXX/XXDAYXX] % (optional)
+{XXMONTHTXTXX XXDAYXX, 20XXYEARXX}
+
+\subject{Talks}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+
+
+
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}
