@@ -26,16 +26,6 @@
 
 \graphicspath{{./fig/}}
 
-\newcommand{\beginbackup}{
-   \newcounter{framenumbervorappendix}
-   \setcounter{framenumbervorappendix}{\value{framenumber}}
-}
-\newcommand{\backupend}{
-   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
-   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
-}
-
-
 %\logo{\includegraphics[height=1.0cm]{cms_logo_bigger}}
 
 \AtBeginSection[] % Do nothing for \section*
@@ -88,5 +78,10 @@
 \end{frame}
 
 
+
+%%Anything after this will not be in the page numbering (if you are using mytheme which numbers frames based on page number)
+%%This command will also create a plain slide with ``Backup'' as the title
+%%You can put \AtBeginAppendix{ ...your code here... } in your preamble to change this
+%%\appendix
 
 \end{document}

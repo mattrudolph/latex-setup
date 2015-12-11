@@ -116,7 +116,8 @@
 \fi
 \hfill
 \begin{tikzpicture}
-\node[rounded rectangle,rounded rectangle east arc=none,fill=palette soft.bg,text=palette soft.fg] {\usebeamerfont{author in head/foot}\strut\insertshortauthor\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\strut};
+%%  \node[rounded rectangle,rounded rectangle east arc=none,fill=palette soft.bg,text=palette soft.fg] {\usebeamerfont{author in head/foot}\strut\insertshortauthor\hspace*{2em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\strut};
+  \node[rounded rectangle,rounded rectangle east arc=none,fill=palette soft.bg,text=palette soft.fg] {\usebeamerfont{author in head/foot}\strut\insertshortauthor\hspace*{2em} \insertpagenumber{} / \insertpresentationendpage\hspace*{2ex}\strut};
 \end{tikzpicture}
 \end{beamercolorbox}
 }
@@ -190,7 +191,23 @@
 }
 
 
+%% Add an AtBeginAppendix command
 
+%%This renew is because \translate is in appendix name in beamer and this causes hyperref to give out a warning.  i don't need the translate
+\renewcommand\appendixname{Appendix}
+
+%%but do save whatever the appendix command was
+\let\@oldappendix\appendix
+\newcommand{\AtBeginAppendix}[1]{
+  \AtBeginDocument{
+    \renewcommand{\appendix}{\@oldappendix{#1}}
+  }
+}
+
+\AtBeginAppendix{
+  \begin{frame}[plain]{Backup}
+  \end{frame}
+}
 
 
 %% \setbeamertemplate{footnote}{
